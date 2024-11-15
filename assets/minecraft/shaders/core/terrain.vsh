@@ -31,9 +31,9 @@ void main() {
     float aspect = ScreenSize.x / ScreenSize.y;
     vec2 center = gl_Position.xy - vec2(0.5,0.5);
     center.x *= aspect;
-    float radius = 7;
-    if (dot(center,center)  < radius * gl_Position.z) {
-        float value = 1 - (dot(center,center) / gl_Position.z) / radius;
+    float radius = 0.7;
+    if (dot(center,center)  < radius * gl_Position.z* gl_Position.z) {
+        float value = 1 - (dot(center,center) / (gl_Position.z*gl_Position.z)) / radius;
         value *= 0.9;
         value = min(0.6,value);
         light = vec4(vec3(max(value,light.x)), 1.0);
