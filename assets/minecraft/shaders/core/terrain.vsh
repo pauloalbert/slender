@@ -31,7 +31,7 @@ void main() {
     float aspect = ScreenSize.x / ScreenSize.y;
     vec2 center = gl_Position.xy - vec2(0.5,0.5);
     center.x *= aspect;
-    float radius = 0;
+    float radius = 7;
     if (dot(center,center)  < radius * gl_Position.z) {
         float value = 1 - (dot(center,center) / gl_Position.z) / radius;
         value *= 0.9;

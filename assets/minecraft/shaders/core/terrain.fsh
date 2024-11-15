@@ -43,11 +43,13 @@ void main() {
             float gray = dot(color.rgb, vec3(0.299, 0.587, 0.114));
             vec4 graycolor = vec4(vec3(gray), color.a);
             
-            vec4 output = linear_fog(color, vertexDistance, 0, 90, vec4(0.01,0.01,0.04,1));
+            
+            vec4 lighter_output = mix(color, graycolor, 0.1) ;
+            vec4 output = linear_fog(lighter_output, vertexDistance, 0, 90, vec4(0.01,0.01,0.04,1));
+            
             float norm = dot(output.xyz,output.xyz);
-            output = vec4(output.xyz*norm*30,color.a);
-            vec4 lighter_output = mix(output, graycolor, 0.1) ;
-            fragColor = linear_fog(2*color, vertexDistance, 0, 3, lighter_output);
+            output = vec4(output.xyz*norm*10,color.a);
+            fragColor = linear_fog(2*color, vertexDistance, 0, 3, output);
     }
 
 }
