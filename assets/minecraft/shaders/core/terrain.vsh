@@ -61,6 +61,7 @@ void main() {
             float value = 1 - (dot(center,center) / (gl_Position.z*gl_Position.z)) / radius;
             value *= 0.9;
             value = min(0.6,value);
+            value *= (1-1/gl_Position.z);
             light = vec4(vec3(max(value,light.x)), 1.0);
         }
     }
