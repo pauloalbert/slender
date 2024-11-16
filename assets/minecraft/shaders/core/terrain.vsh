@@ -46,7 +46,7 @@ void main() {
     vertexDistance = fog_distance(pos, FogShape);
 
     // Light from lightmap
-    vec4 light = minecraft_sample_lightmap(Sampler2, UV2);
+    vec4 light = minecraft_sample_lightmap(Sampler2, ivec2(UV2.x,max(160-10*gl_Position.z,0)));
 
     has_blindness = isBlind(FogEnd) ? 1 : 0;
     has_night_vision = isNightVisioned(Sampler2) ? 1 : 0;
