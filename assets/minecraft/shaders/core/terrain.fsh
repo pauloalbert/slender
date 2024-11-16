@@ -1,8 +1,10 @@
-#version 150
+#version 330
 
 #moj_import <minecraft:fog.glsl>
+// #moj_import <minecraft:lightmap_inputs.glsl>
 
 uniform sampler2D Sampler0;
+uniform sampler2D Sampler2;
 
 uniform vec4 ColorModulator;
 uniform float FogStart;
@@ -13,6 +15,9 @@ uniform vec2 ScreenSize;
 in float vertexDistance;
 in vec4 vertexColor;
 in vec2 texCoord0;
+
+in float has_blindness;
+in float has_night_vision;
 
 out vec4 fragColor;
 
@@ -30,26 +35,18 @@ void main() {
   //  vec4 mix1 = mix(fog1,color, 0.3);
   //  vec4 mix2 = mix(fog2,color, 0.65);
 
-    // Vanilla color
-    fragColor = linear_fog(color, vertexDistance, FogStart, FogEnd, FogColor);
-    
-    float FogColorRedValue = ceil(FogColor.r * 255);
-    float FogColorGreenValue = ceil(FogColor.g * 255);
-    float FogColorBlueValue = ceil(FogColor.b * 255);
+    if(has_night_vision > 0.0001) {
+        // Vanilla color
+        fragColor = linear_fog(color, vertexDistance, FogStart, FogEnd, FogColor);
+    } else {
+        //Dim color
+        float norm = dot(color.xyz,color.xyz);
+        vec4 output = vec4(color.xyz*norm*5,color.a);
+        //vec4 lighter_output = mix(output, graycolor, 0.1) ;
 
-    if (FogColorRedValue == 159 && FogColorGreenValue == 188 && FogColorBlueValue == 201 ||
-        FogColorRedValue == 153 && FogColorGreenValue == 26 && FogColorBlueValue == 0 || 
-        FogColorRedValue == 0 && FogColorGreenValue == 0 && FogColorBlueValue == 0) {
-            float gray = dot(color.rgb, vec3(0.299, 0.587, 0.114));
-            vec4 graycolor = vec4(vec3(gray), color.a);
-            
-            
-            vec4 lighter_output = mix(color, graycolor, 0.1) ;
-            vec4 output = linear_fog(lighter_output, vertexDistance, 0, 90, vec4(0.01,0.01,0.04,1));
-            
-            float norm = dot(output.xyz,output.xyz);
-            output = vec4(output.xyz*norm*10,color.a);
-            fragColor = linear_fog(2*color, vertexDistance, 0, 3, output);
+        vec4 near_color = linear_fog(2*color, vertexDistance, 0, 3, output);
+        vec4 far_falloff = linear_fog(near_color, vertexDistance, 0, 80, vec4(0.01,0.01,0.02,1));
+        fragColor = far_falloff;
     }
 
 }
