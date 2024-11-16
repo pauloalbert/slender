@@ -1,7 +1,6 @@
 #version 330
 
 #moj_import <minecraft:fog.glsl>
-// #moj_import <minecraft:lightmap_inputs.glsl>
 
 uniform sampler2D Sampler0;
 uniform sampler2D Sampler2;
