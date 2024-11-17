@@ -21,6 +21,9 @@ flat in ivec4 iColor;
 
 void main() {
     // ShaderSelector
+    if (isMarker == 2) {
+        discard;
+    }
     if (isMarker == 1) {
         fragColor = vec4(iColor.rgb, 255) / 255.0;
         return;

@@ -40,13 +40,17 @@ void main() {
     isMarker = int(
         iColor.r == MARKER_RED
     );
+    vec4 pos = ProjMat * ModelViewMat * vec4(Position, 1.0);
     ivec2 markerPos = ivec2(0, 0);
+    if (!(fog_distance(Position, FogShape) < 10.0 || (pos.z > 0 && pos.x > -pos.z && pos.x < pos.z && pos.y > -pos.z && pos.y < pos.z))){
+        isMarker = 2;
+    }
     if (isMarker == 1) {
         isMarker = 0;
         #define ADD_MARKER(row, green, alpha, op, rate) if (ivec2(green, alpha) == iColor.ga) {isMarker = 1; markerPos = MARKER_POS(row);}
         LIST_MARKERS
     }
-    if (isMarker == 1 && (markerPos.x+markerPos.y)%2 == 0) {
+    if (isMarker >= 1 && (markerPos.x+markerPos.y)%2 == 0) {
         vec2 markerSize = 2.0 / ScreenSize;
 
         gl_Position = vec4(-1 + (vec2(markerPos) + corners[gl_VertexID % 4]) * markerSize, 0.0, 1.0);

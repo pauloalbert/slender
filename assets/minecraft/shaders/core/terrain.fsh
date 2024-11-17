@@ -39,10 +39,11 @@ void main() {
     } else {
         //Dim color
         float norm = dot(color.xyz,color.xyz);
-        vec4 output = vec4(color.xyz*norm*5,color.a);
+        norm = min(norm*5, 1.4);
+        vec4 output = vec4(color.xyz*norm,color.a);
         //vec4 lighter_output = mix(output, graycolor, 0.1) ;
 
-        vec4 near_color = linear_fog(2*color, vertexDistance, 0, 4, output);
+        vec4 near_color = linear_fog(2*color, vertexDistance, 0, 5, (1+0.5*smoothstep(40,60,vertexDistance))*output);
         vec4 far_falloff = linear_fog(near_color, vertexDistance, 0, 80, vec4(0.01,0.01,0.02,1));
         far_falloff = linear_fog(near_color, vertexDistance, 30, 60, far_falloff * 0.5);
         fragColor = far_falloff;

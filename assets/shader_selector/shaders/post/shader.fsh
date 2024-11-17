@@ -47,7 +47,7 @@ void main() {
 
     // Apply greyscale effect
     // Get full greyscale color
-    vec3 greyscale =  vec3(random(uv*(1 + GameTime)));
+    vec3 greyscale =  vec3(random(vec2(floor(uv.x*500)/500, floor(uv.y*500)/500)*(1 + GameTime)));
     
     // Apply greyscale color
     float greyscaleAmount = readChannel(EXAMPLE_GREYSCALE_CHANNEL);
