@@ -2,6 +2,7 @@
 
 #moj_import <minecraft:light.glsl>
 #moj_import <minecraft:fog.glsl>
+#moj_import <minecraft:lightmap_inputs.glsl>
 
 in vec3 Position;
 in vec4 Color;
@@ -49,7 +50,7 @@ void main() {
     vec4 light = minecraft_sample_lightmap(Sampler2, ivec2(UV2.x,max(160-10*gl_Position.z,0)));
 
     has_blindness = isBlind(FogEnd) ? 1 : 0;
-    has_night_vision = isNightVisioned(Sampler2) ? 1 : 0;
+    has_night_vision = getNightVisionFactor(Sampler2);
 
     if(has_night_vision > 0.001) {
         // Circle - changing the lighting if in the circle

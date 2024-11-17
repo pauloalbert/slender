@@ -3,7 +3,6 @@
 #moj_import <minecraft:fog.glsl>
 
 uniform sampler2D Sampler0;
-uniform sampler2D Sampler2;
 
 uniform vec4 ColorModulator;
 uniform float FogStart;
@@ -36,7 +35,7 @@ void main() {
 
     if(has_blindness > 0.0001) {
         // Vanilla color
-        fragColor = linear_fog(color, vertexDistance, FogStart, FogEnd* 100, FogColor);
+        fragColor = linear_fog(1.5*color, vertexDistance, FogStart, FogEnd* 100, vec4(0.01,0.08,0.1,1));
     } else {
         //Dim color
         float norm = dot(color.xyz,color.xyz);
