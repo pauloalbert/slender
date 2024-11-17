@@ -1,5 +1,9 @@
 #version 330
 
+// This is a util file to get the lightmap values.
+// Taken from https://github.com/JNNGL/vanilla-shaders/tree/main/lightmap_uniforms 
+// This works in conjunction with core/lightmap.fsh, and encodes the data into the alpha channel of the light map. be sure to include all the files, and not just this one.
+
 uint readPackedByte(sampler2D lightMap, ivec2 coord) {
     return uint(round(texelFetch(lightMap, coord, 0).a * 255.0));
 }
