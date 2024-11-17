@@ -7,6 +7,7 @@ uniform float FogStart;
 uniform float FogEnd;
 uniform vec4 FogColor;
 uniform vec2 ScreenSize;
+uniform float GameTime;
 
 in mat4 ProjInv;
 in float isSky;
@@ -33,7 +34,8 @@ void main() {
         float ndusq = clamp(dot(view, vec3(0.0, 1.0, 0.0)), 0.0, 1.0);
         ndusq = ndusq * ndusq;
 
-        fragColor = linear_fog(ColorModulator, pow(1.0 - ndusq, 8.0), 0.0, 1.0, vec4(0,0.02,0.05,1));
+        fragColor = linear_fog(ColorModulator, pow(1.0 - ndusq, 8.0), 0.0, 1.0, vec4(0,0.007+vdn*0.15,0.008+vdn*0.45,1));
+
     } 
     // default shading for void plane and stars
     else {
