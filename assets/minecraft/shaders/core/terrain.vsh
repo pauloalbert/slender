@@ -51,7 +51,7 @@ void main() {
     has_blindness = isBlind(FogEnd) ? 1 : 0;
     has_night_vision = isNightVisioned(Sampler2) ? 1 : 0;
 
-    if(has_blindness < 0.001) {
+    if(has_night_vision > 0.001) {
         // Circle - changing the lighting if in the circle
         float aspect = ScreenSize.x / ScreenSize.y;
         vec2 center = gl_Position.xy - vec2(0.5,0.5);

@@ -34,9 +34,9 @@ void main() {
   //  vec4 mix1 = mix(fog1,color, 0.3);
   //  vec4 mix2 = mix(fog2,color, 0.65);
 
-    if(has_night_vision > 0.0001) {
+    if(has_blindness > 0.0001) {
         // Vanilla color
-        fragColor = linear_fog(color, vertexDistance, FogStart, FogEnd, FogColor);
+        fragColor = linear_fog(color, vertexDistance, FogStart, FogEnd* 100, FogColor);
     } else {
         //Dim color
         float norm = dot(color.xyz,color.xyz);
