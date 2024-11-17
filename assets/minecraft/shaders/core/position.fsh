@@ -33,17 +33,17 @@ void main() {
         float ndusq = clamp(dot(view, vec3(0.0, 1.0, 0.0)), 0.0, 1.0);
         ndusq = ndusq * ndusq;
 
-        fragColor = linear_fog(ColorModulator, pow(1.0 - ndusq, 8.0), 0.0, 1.0, FogColor);
+        fragColor = linear_fog(ColorModulator, pow(1.0 - ndusq, 8.0), 0.0, 1.0, vec4(0,0.02,0.05,1));
     } 
     // default shading for void plane and stars
     else {
         fragColor = linear_fog(ColorModulator, vertexDistance, FogStart, FogEnd, FogColor);
     }
 
-    // drawing the red grid
-    if (fract(vdn * GRIDDENSITY + GRIDOFFSET) < 0.01 
-     || fract(vdt * GRIDDENSITY + GRIDOFFSET) < 0.01
-     || fract(vdb * GRIDDENSITY + GRIDOFFSET) < 0.01) {
-        fragColor = vec4(1.0, 0.0, 0.0, 1.0);
-    }
+    // // drawing the red grid
+    // if (fract(vdn * GRIDDENSITY + GRIDOFFSET) < 0.01 
+    //  || fract(vdt * GRIDDENSITY + GRIDOFFSET) < 0.01
+    //  || fract(vdb * GRIDDENSITY + GRIDOFFSET) < 0.01) {
+    //     fragColor = vec4(1.0, 0.0, 0.0, 1.0);
+    // }
 }
