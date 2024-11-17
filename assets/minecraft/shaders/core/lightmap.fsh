@@ -60,7 +60,7 @@ void main() {
     }
 
     vec3 notGamma = notGamma(color);
-    color = mix(color, notGamma, BrightnessFactor);
+    color = mix(color, notGamma, 0.5+BrightnessFactor);
     color = mix(color, vec3(0.75), 0.04);
     color = clamp(color, 0.0, 1.0);
 
