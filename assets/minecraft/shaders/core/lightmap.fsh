@@ -46,14 +46,14 @@ void main() {
         color = mix(color, darkened_color, DarkenWorldFactor);
     }
 
-    if (NightVisionFactor > 0.0) {
-        // scale up uniformly until 1.0 is hit by one of the colors
-        float max_component = max(color.r, max(color.g, color.b));
-        if (max_component < 1.0) {
-            vec3 bright_color = color / max_component;
-            color = mix(color, bright_color, NightVisionFactor);
-        }
-    }
+    // if (NightVisionFactor > 0.0) {
+    //     // scale up uniformly until 1.0 is hit by one of the colors
+    //     float max_component = max(color.r, max(color.g, color.b));
+    //     if (max_component < 1.0) {
+    //         vec3 bright_color = color / max_component;
+    //         color = mix(color, bright_color, NightVisionFactor);
+    //     }
+    // }
 
     if (UseBrightLightmap == 0) {
         color = clamp(color - vec3(DarknessScale), 0.0, 1.0);
