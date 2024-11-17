@@ -1,4 +1,4 @@
-#version 150
+#version 330
 
 uniform float AmbientLightFactor;
 uniform float SkyFactor;
@@ -24,9 +24,33 @@ vec3 notGamma(vec3 x) {
     return 1.0 - nx * nx * nx * nx;
 }
 
+float getFloat(int index) {
+    switch (index) {
+        case 0: return AmbientLightFactor;
+        case 1: return SkyFactor;
+        case 2: return BlockFactor;
+        case 3: return UseBrightLightmap;
+        case 4: return SkyLightColor[0];
+        case 5: return SkyLightColor[1];
+        case 6: return SkyLightColor[2];
+        case 7: return NightVisionFactor;
+        case 8: return DarknessScale;
+        case 9: return DarkenWorldFactor;
+        case 10: return BrightnessFactor;
+    }
+    return 0.0;
+}
+
+int getAlpha() {
+    int coord = int(floor(gl_FragCoord.y) * 16 + floor(gl_FragCoord.x));
+    int byte = coord % 4;
+    int index = coord / 4;
+    return int((floatBitsToUint(getFloat(index)) >> (byte * 8)) & 0xFFu);
+}
+
 void main() {
-    float block_brightness = get_brightness(floor(texCoord.x * 16) / 15) * BlockFactor;
-    float sky_brightness = get_brightness(floor(texCoord.y * 16) / 15) * SkyFactor;
+    float block_brightness = get_brightness(texCoord.x) * BlockFactor;
+    float sky_brightness = get_brightness(texCoord.y) * SkyFactor;
 
     // cubic nonsense, dips to yellowish in the middle, white when fully saturated
     vec3 color = vec3(
@@ -60,9 +84,9 @@ void main() {
     }
 
     vec3 notGamma = notGamma(color);
-    color = mix(color, notGamma, 0.5+BrightnessFactor);
+    color = mix(color, notGamma, 0.5 + BrightnessFactor);
     color = mix(color, vec3(0.75), 0.04);
     color = clamp(color, 0.0, 1.0);
 
-    fragColor = vec4(color, 1.0);
+    fragColor = vec4(color, float(getAlpha()) / 255.0);
 }

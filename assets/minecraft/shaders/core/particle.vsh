@@ -52,7 +52,7 @@ void main() {
         
         texCoord0 = UV0;
         vertexColor = Color;
-        lightColor = minecraft_sample_lightmap(Sampler2, UV2);
-        maxLightColor = minecraft_sample_lightmap(Sampler2, ivec2(240.0, 240.0));
+        lightColor = minecraft_fetch_lightmap(Sampler2, UV2);
+        maxLightColor = minecraft_fetch_lightmap(Sampler2, ivec2(240.0, 240.0));
     }
 }
