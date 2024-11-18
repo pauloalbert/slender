@@ -15,7 +15,6 @@ in vec4 vertexColor;
 in vec2 texCoord0;
 
 in float has_blindness;
-in float has_night_vision;
 
 out vec4 fragColor;
 

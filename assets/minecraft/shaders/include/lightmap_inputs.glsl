@@ -19,6 +19,8 @@ float decodePackedFloat(sampler2D lightMap, int index) {
     return uintBitsToFloat(bits);
 }
 
+bool isBlind(float FogEnd) {return (isinf(FogEnd) || isnan(FogEnd) || FogEnd < 10.0);}
+
 float getAmbientLightFactor(sampler2D lightMap) {
     return decodePackedFloat(lightMap, 0);
 }
