@@ -2,6 +2,7 @@
 
 #moj_import <minecraft:light.glsl>
 #moj_import <minecraft:fog.glsl>
+#moj_import <minecraft:darkness.glsl>
 
 in vec3 Position;
 in vec4 Color;
@@ -36,7 +37,7 @@ void main() {
 #else
     vertexColor = minecraft_mix_light(Light0_Direction, Light1_Direction, Normal, Color);
 #endif
-    lightMapColor = minecraft_fetch_lightmap(Sampler2, UV2);
+    lightMapColor = get_vertex_light(Sampler2, gl_Position, UV2, vec2(16,9), 1, 0);
     overlayColor = texelFetch(Sampler1, UV1, 0);
 
     texCoord0 = UV0;
