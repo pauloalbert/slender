@@ -47,7 +47,7 @@ void main() {
     vertexDistance = fog_distance(pos, FogShape);
 
     // Light from lightmap
-    vec4 light = minecraft_sample_lightmap(Sampler2, ivec2(UV2.x,max(160-10*gl_Position.z,0)));
+    vec4 light = minecraft_sample_lightmap(Sampler2, ivec2(UV2.x,max(160-15*gl_Position.z,0)));
 
     has_blindness = isBlind(FogEnd) ? 1 : 0;
     has_night_vision = getNightVisionFactor(Sampler2);
@@ -69,8 +69,8 @@ void main() {
             float value = 1 - (dot(center,center) / (gl_Position.z*gl_Position.z)) / radius;
             value *= 0.9;
             value = min(0.6,value);
-            value *= max(0.5,min(1,(1-1/gl_Position.z)));
-            value *= max(0.8,min(1, (5/sqrt(gl_Position.z))));
+            value *= max(0.5,min(1,(1-1/gl_Position.z)));   //close weaker
+            value *= max(0.5,min(1, (3/sqrt(gl_Position.z))));  //far weaker
             light = vec4(vec3(max(value,light.x)), 1.0);
         }
     }
