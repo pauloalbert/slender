@@ -56,6 +56,11 @@ void main() {
         // Circle - changing the lighting if in the circle
         float aspect = ScreenSize.x / ScreenSize.y;
         vec2 center = gl_Position.xy - vec2(0.5,0.5);
+        //lower center on sprint
+        if (has_night_vision < 0.9){
+            center.y += gl_Position.z * gl_Position.z * 0.05;   //should be gl_.z not squared
+        }
+
         center.x *= aspect;
         float radius = 0.7;
         if (dot(center,center)  < radius * gl_Position.z* gl_Position.z) {
