@@ -28,21 +28,12 @@ void main() {
 
     // Apply rotation effect
     // Read rotation amount
-    float rotationAmount = readChannel(EXAMPLE_ROTATION_CHANNEL);
+    float rotationAmount = readChannel(SHADER_F5_CHANNEL);
 
-    // Convert to radians
-    float angle = radians(rotationAmount * 360.0);
-
-    // Apply rotation to texture coordinates
-    vec2 uv = (texCoord - 0.5) * OutSize;
-    uv *= mat2(cos(angle), -sin(angle), sin(angle), cos(angle));
-    uv = uv / OutSize + 0.5;
-
-    // Show color at texture coordinates
+    vec2 uv = texCoord;
     fragColor = texture(MainSampler, uv);
-    // If texture coordinates are out of bounds, show blurred version
-    if (uv.x < 0. || uv.x > 1. || uv.y < 0. || uv.y > 1.) {
-        fragColor = texture(BlurSampler, (uv - 0.5)*sqrt(0.5) + 0.5);
+    if(rotationAmount > 0.9) {
+        fragColor = mix(fragColor, vec4(1,0,0,1), rotationAmount/2);
     }
 
     // Apply greyscale effect
@@ -50,7 +41,7 @@ void main() {
     vec3 greyscale =  vec3(random(vec2(floor(uv.x*500)/500, floor(uv.y*500)/500)*(1 + GameTime)));
     
     // Apply greyscale color
-    float greyscaleAmount = readChannel(EXAMPLE_GREYSCALE_CHANNEL);
+    float greyscaleAmount = readChannel(SHADER_NOISE_CHANNEL);
     fragColor.rgb = mix(fragColor.rgb, greyscale, greyscaleAmount);
 
 //#define DEBUG

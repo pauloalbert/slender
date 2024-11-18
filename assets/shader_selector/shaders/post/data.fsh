@@ -117,6 +117,9 @@ void constantMotion(ivec2 iCoord, int op, float targetValue) {
         return;
     }
     // iCoord.x is 4
+    if (op == 5 && x > targetValue) {
+        v *= 3;
+    }
     float stepSize = min(v * deltaTime, abs(dx));
     x += sign(dx) * stepSize;
     if (op == 2) {
