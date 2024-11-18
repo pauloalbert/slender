@@ -23,7 +23,6 @@ out vec2 texCoord0;
 
 
 uniform float FogEnd;
-out float has_blindness;
 
 bool isNightVisioned(sampler2D lightMap) {
     vec4 dark_value = minecraft_sample_lightmap(Sampler2, ivec2(0,0));
