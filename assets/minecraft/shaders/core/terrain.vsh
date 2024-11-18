@@ -17,7 +17,7 @@ uniform mat4 ProjMat;
 uniform vec3 ModelOffset;
 uniform int FogShape;
 uniform vec2 ScreenSize;
-
+uniform float GameTime;
 out float vertexDistance;
 out vec4 vertexColor;
 out vec2 texCoord0;
@@ -58,7 +58,9 @@ void main() {
         vec2 center = gl_Position.xy - vec2(0.5,0.5);
         //lower center on sprint
         if (has_night_vision < 0.9){
-            center.y += gl_Position.z * gl_Position.z * 0.05;   //should be gl_.z not squared
+            center.y += gl_Position.z *  (0.4+0.1*sin(GameTime*8888)*sin(GameTime*8888)*sin(GameTime*8888));   //should be gl_.z not squared
+            center.x += gl_Position.z *  (0.1*sin(GameTime*6966)*sin(GameTime*6966)*sin(GameTime*6966));   //should be gl_.z not squared
+
         }
 
         center.x *= aspect;
