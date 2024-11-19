@@ -15,14 +15,14 @@ uniform mat4 ModelViewMat;
 uniform mat4 ProjMat;
 uniform vec3 ModelOffset;
 uniform int FogShape;
-uniform vec2 ScreenSize;
-uniform float GameTime;
 out float vertexDistance;
 out vec4 vertexColor;
 out vec2 texCoord0;
 
 
 uniform float FogEnd;
+uniform vec2 ScreenSize;
+uniform float GameTime;
 
 bool isNightVisioned(sampler2D lightMap) {
     vec4 dark_value = minecraft_sample_lightmap(Sampler2, ivec2(0,0));

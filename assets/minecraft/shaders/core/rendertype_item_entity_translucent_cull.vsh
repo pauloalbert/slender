@@ -2,6 +2,7 @@
 
 #moj_import <minecraft:light.glsl>
 #moj_import <minecraft:fog.glsl>
+#moj_import <minecraft:darkness.glsl>
 
 in vec3 Position;
 in vec4 Color;
@@ -25,11 +26,19 @@ out vec2 texCoord0;
 out vec2 texCoord1;
 out vec2 texCoord2;
 
+uniform float FogEnd;
+uniform vec2 ScreenSize;
+uniform float GameTime;
 void main() {
     gl_Position = ProjMat * ModelViewMat * vec4(Position, 1.0);
 
     vertexDistance = fog_distance(Position, FogShape);
-    vertexColor = minecraft_mix_light(Light0_Direction, Light1_Direction, Normal, Color) * minecraft_fetch_lightmap(Sampler2, UV2);
+    if (vertexDistance < 500){
+        vertexColor = minecraft_mix_light(Light0_Direction, Light1_Direction, Normal, Color) * get_vertex_light(Sampler2, gl_Position, UV2, ScreenSize, FogEnd, GameTime);
+    }
+    else{
+        vertexColor = minecraft_mix_light(Light0_Direction, Light1_Direction, Normal, Color) * minecraft_fetch_lightmap(Sampler2, UV2);
+    }
     texCoord0 = UV0;
     texCoord1 = UV1;
     texCoord2 = UV2;
