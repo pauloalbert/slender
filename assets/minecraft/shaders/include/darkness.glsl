@@ -15,8 +15,14 @@ vec4 get_vertex_light(sampler2D Sampler2, vec4 gl_Position, ivec2 UV2, vec2 Scre
         vec2 center = gl_Position.xy - vec2(0.5,0.5);
         //lower center on sprint
         if (has_night_vision < 0.9){
-            center.y += gl_Position.z *  (0.4+0.1*sin(GameTime*8888)*sin(GameTime*8888)*sin(GameTime*8888));   //should be gl_.z not squared
-            center.x += gl_Position.z *  (0.1*sin(GameTime*6966)*sin(GameTime*6966)*sin(GameTime*6966));   //should be gl_.z not squared
+            center.y += gl_Position.z *  (0.4+0.1*sin(GameTime*8888)*sin(GameTime*8888)*sin(GameTime*8888));  
+            center.x += gl_Position.z *  (0.1*sin(GameTime*6966)*sin(GameTime*6966)*sin(GameTime*6966));  
+
+            // //big dip
+            // float g = 9*(fract(GameTime * 800 ) + fract(GameTime * 1005));
+            // float of = 5.;
+            // center.y +=  gl_Position.z * (1 / (10 * (g-of)*(g-of)*(g-of)*(g-of) + 1));
+            //big dip
 
         }
 
