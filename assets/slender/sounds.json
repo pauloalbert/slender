@@ -1,0 +1,48 @@
+{
+
+  "player.breath": {
+    "subtitle": "Player exhaustion",
+    "sounds":[
+      "slender:player/breath"
+    ]
+  },
+  "player.flashlight": {
+    "sounds":[
+      "slender:player/flashlightclick"
+    ]
+  },
+  "slender.static_light": {
+    "subtitle": "HE'S HERE",
+    "sounds":[
+      "slender:slenderman/staticlight"
+    ]
+  },
+  "slender.static_medium": {
+    "subtitle": "RUN AWAY RUN AWAY",
+    "sounds":[
+      "slender:slenderman/staticmedium"
+    ]
+  },
+  "slender.static_heavy": {
+    "subtitle": "MY EYES",
+    "sounds":[
+      "slender:slenderman/staticmedium"
+    ]
+  },
+  "slender.piano": {
+    "subtitle": "f o u n d  y o u",
+    "sounds":[
+      "slender:slenderman/piano"
+    ]
+  },
+  "ambient.crickets": {
+    "sounds":[
+      "slender:ambient/cricket1"
+    ]
+  },
+  "ambient.drums": {
+    "sounds":[
+      "slender:ambient/drums"
+    ]
+  }
+}
